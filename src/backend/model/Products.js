@@ -7,10 +7,10 @@ const prod=mongoose.Schema(
         //     require:true,
         //     ref:"user"
         // },
-        // _id:
-        // { type: Number,
-        //   require:true
-        // },
+        _id:
+        { type: Number,
+          require:true
+        },
         name:
         {
             type:String,
@@ -56,7 +56,18 @@ const prod=mongoose.Schema(
         {
             type:Number,
             require:true
-        }
+        },
+        cart:
+        {
+            type:Number,
+            require:true
+        },
+        cartcount:
+        {
+            type:Number,
+            require:true
+        },
+
         
 
 

@@ -17,14 +17,18 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 export default function Itemdetails() {
   const [products,updateProduct]=useState([])
-  const [count,updateCount]=useState([])
+  //const [userid,updateUserid]=useState([])
+  // const [count,updateCount]=useState([])
   const flag=0;
 
      useEffect(()=>{
-        axios.get("http://localhost:8080/").then((response) =>{
+        axios.get("http://localhost:8080/cart").then((response) =>{
             updateProduct(response.data)
         });
      },[])
+
+   
+     
   return (
     <section className="h-100 h-custom" style={{ backgroundColor: "#eee" }}>
       <MDBContainer className="py-5 h-100">
@@ -88,7 +92,7 @@ export default function Itemdetails() {
                                     tag="h5"
                                     className="fw-normal mb-0"
                                   >
-                                    {p.countInStock}
+                                    {p.cartcount}
                                   </MDBTypography>
                                 </div>
                                 <div style={{ width: "80px" }}>
@@ -96,9 +100,14 @@ export default function Itemdetails() {
                                    {p.price}
                                   </MDBTypography>
                                 </div>
-                                <a href="#!" style={{ color: "#cecece" }}>
+
+                                
+                                {/* {updateUserid(p._id)}
+                                {updateCount(p.cartcount)} */}
+                                
+                                <Button  onClick={()=>Onclicktrush(p._id,p.cartcount,p.countInStock)} style={{ color: "#cecece" }}>
                                   <MDBIcon fas icon="trash-alt" />
-                                </a>
+                                </Button>
                               </div>
                             </div>
                           </MDBCardBody>
@@ -269,4 +278,28 @@ export default function Itemdetails() {
       </MDBContainer>
     </section>
   );
+
+
+  async function Onclicktrush(usrid,cnt,stok)
+  {
+   // console.log(usid+"  "+count)
+   try{
+
+            const details = {
+                count:cnt,
+                 userid:usrid,
+                 stock:stok
+                }
+       axios.put('http://localhost:8080/removecart/'+usrid,details)
+            .then(response => {
+              window.location.reload(false);
+                console.log(response.data)});
+        }catch(error)
+      
+        {
+           console.log(error)  
+        }
+    
+  }
 }
+

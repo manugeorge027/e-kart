@@ -1,0 +1,65 @@
+const express=require("express")
+const requestHanderler=require("express-async-handler")
+const product = require("../model/Products")
+const router=express.Router()
+const connectdb=require("../config/config")
+const cors=require("cors")
+
+try{
+   connectdb()
+
+
+router.get('/',requestHanderler(async(req,res) =>{
+    const Product=await product.find({})
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    
+    res.json(Product)
+  
+}))
+
+
+router.put('/removecart/:id',(async(req,res,next) =>{
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, DELETE, POST, GET, PATCH, PUT');
+     const uid=req.body.userid
+     const cnt=req.body.count
+     const stock=req.body.stock
+     
+    await product.findByIdAndUpdate(uid,{cartcount:'0',cart:'0',countInStock:stock+cnt})
+     res.send("sucessfully update")
+}))
+
+
+router.put('/addcart/:id',(async(req,res,next) =>{
+      res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+       res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, DELETE, POST, GET, PATCH, PUT');
+       const uid=req.body.userid
+       const cnt=req.body.count
+       const stock=req.body.stock
+      await product.findByIdAndUpdate(uid,{cartcount:cnt,cart:'1',countInStock:stock-cnt})
+       res.send("sucessfully update")
+}))
+    
+    
+
+
+router.get('/cart',requestHanderler(async(req,res) =>{
+    const Product=await product.find({cart:'1' })
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.json(Product) 
+    console.log(product._id)
+    
+}))
+router.get('/:id',requestHanderler(async(req,res) =>{
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    const Product=await product.findById(req.params.id)
+   if(Product)
+    res.json(Product )
+    else
+    res.status(404)
+}))
+}catch(error)
+{
+    console.log(error)
+}
+module.exports=router

@@ -15,18 +15,18 @@ try{
 // console.log(doc.name)
 
 const output=new product({
-     
-       _id: '2',
-      name: 'Micromax IN 1b (Purple, 32 GB)',
-      image: '/images/micromaxInB.jpg',
-      description:
-        'Say hello to the Micromax IN 1b smartphone whose powerful MediaTek Helio G35 gaming processor and a 5000 mAh battery will pave the way for effortless multitasking and usage.',
-      brand: 'Micromax',
-      category: 'Electronics',
-      price: 599.99,
-      countInStock: 7,
-      rating: 4.0,
-      numReviews: 8,
+  _id: '6',
+  name: 'Amazon Echo Dot 3rd Generation',
+  image: '/images/alexa.jpg',
+  description:
+    'Meet Echo Dot - Our most popular smart speaker with a fabric design. It is our most compact smart speaker that fits perfectly into small space',
+  brand: 'Amazon',
+  category: 'Electronics',
+  price: 29.99,
+  countInStock: 0,
+  rating: 4,
+  numReviews: 12,
+ 
 }
 
 )
